@@ -14,7 +14,7 @@ sample = censusdata.search('acs5', 2015, 'concept', 'transportation')#[160:170]
 
 
 
-censusdata.printtable(censusdata.censustable('acs5', 2015, 'B23025'))
+#censusdata.printtable(censusdata.censustable('acs5', 2015, 'B23025'))
 
 states = censusdata.geographies(censusdata.censusgeo([('state', '*')]), 'acs5', 2015)
 

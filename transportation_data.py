@@ -14,7 +14,7 @@ pd.set_option('display.precision', 2)
 
 
 
-censusdata.printtable(censusdata.censustable('acs5', 2015, 'B08301'))
+#censusdata.printtable(censusdata.censustable('acs5', 2015, 'B08301'))
 
 column_names = ['total', 'drove_alone', 'carpooled', 'bus', 'streetcar', 'subway', 'railroad', 'ferry', 'taxi', 'motorcycle', 'bike','walked', 'other', 'wfh']
 
