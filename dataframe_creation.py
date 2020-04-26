@@ -18,5 +18,7 @@ df = censusdata.download('acs5', 2015,
 
 df = pd.DataFrame(df)
 df.columns = column_names
+df['percent_unemployed'] = df.apply(lambda row: row['total_unemployed']/row['total_workforce'] , axis = 1)
+df['percent_public_transpo'] = df.apply(lambda row: row['total_public_transpo']/row['total_transpo'] , axis = 1)
 
 print(df.head)
