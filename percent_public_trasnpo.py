@@ -3,10 +3,6 @@ import censusdata
 from tabulate import tabulate
 import plotly.figure_factory as ff
 
-# pd.set_option('display.expand_frame_repr', False)
-# pd.set_option('display.precision', 2)
-
-
 
 def create_dataframe():
     column_names = ['total_transpo', 'total_public_transpo']
@@ -19,10 +15,6 @@ def create_dataframe():
     df.columns = column_names
     df['percent_public_transpo'] = df.apply(lambda row: round(row['total_public_transpo']/row['total_transpo']*100,2) , axis = 1)
 
-    #print(tabulate(df, headers='keys', tablefmt='psql'))
-    #return
-
-    #index_list = df.index.tolist()
     new_indices = []
     county_names = []
 
@@ -36,12 +28,6 @@ def create_dataframe():
     df.index = new_indices
     df['county_name'] = county_names
 
-    #print(tabulate(df, headers='keys', tablefmt='psql'))
-
-    #print(new_indices)
-    #print(county_names)
-
-    #for county in index_list:
     return df
 
 
