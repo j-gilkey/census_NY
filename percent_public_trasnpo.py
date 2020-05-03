@@ -1,6 +1,7 @@
 import pandas as pd
 import censusdata
 from tabulate import tabulate
+import plotly.figure_factory as ff
 
 # pd.set_option('display.expand_frame_repr', False)
 # pd.set_option('display.precision', 2)
@@ -16,7 +17,7 @@ def create_dataframe():
 
     df = pd.DataFrame(df)
     df.columns = column_names
-    df['percent_public_transpo'] = df.apply(lambda row: row['total_public_transpo']/row['total_transpo'] , axis = 1)
+    df['percent_public_transpo'] = df.apply(lambda row: round(row['total_public_transpo']/row['total_transpo']*100,2) , axis = 1)
 
     #print(tabulate(df, headers='keys', tablefmt='psql'))
     #return
@@ -35,12 +36,17 @@ def create_dataframe():
     df.index = new_indices
     df['county_name'] = county_names
 
-    print(tabulate(df, headers='keys', tablefmt='psql'))
+    #print(tabulate(df, headers='keys', tablefmt='psql'))
 
     #print(new_indices)
     #print(county_names)
 
     #for county in index_list:
+    return df
 
 
-create_dataframe()
+df = create_dataframe()
+
+fig = ff.create_choropleth(fips=df.index, scope=['New York'], values=df.percent_public_transpo,title='NY Public Transit Use by County', legend_title='% Public Transit', county_outline={'color': 'rgb(15, 15, 55)', 'width': 0.5})
+fig.layout.template = None
+fig.show()
