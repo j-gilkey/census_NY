@@ -1,12 +1,14 @@
 import pandas as pd
 import percent_public_trasnpo
 import networkx as nx
+from tabulate import tabulate
 import matplotlib.pyplot as plt
 
-def process_tuples(tuple_input):
+def process_tuples(df):
+    all_tuples = list(df.itertuples(index=False, name=None))
     final_tuples = []
 
-    for tuple in tuple_input:
+    for tuple in all_tuples:
         if (tuple[1],tuple[0]) not in final_tuples:
             if tuple[1] != tuple[0]:
                 final_tuples.append((str(tuple[0]),str(tuple[1])))
@@ -39,14 +41,15 @@ def adjacency_graph():
     #make a list of each county
 
     adj_df = pd.read_csv('county_adjacency2010.csv')
+    #print(tabulate(adj_df,headers="keys"))
+    #return
     #read in adjancency data
     adj_df = adj_df[adj_df['fipscounty'].isin(county_FIPS_list)]
     adj_df = adj_df[adj_df['fipsneighbor'].isin(county_FIPS_list)]
     #filter down to only NY counties
     adj_df = adj_df[['fipscounty', 'fipsneighbor']]
     #remove all columns but FIPS
-    fips_tuples = list(adj_df.itertuples(index=False, name=None))
-    fips_tuples = process_tuples(fips_tuples)
+    fips_tuples = process_tuples(adj_df)
 
     G = nx.Graph()
     G.add_nodes_from(county_FIPS)
