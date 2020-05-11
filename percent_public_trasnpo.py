@@ -34,10 +34,3 @@ def create_dataframe():
 
 
     return df
-
-
-# df = create_dataframe()
-#
-# fig = ff.create_choropleth(fips=df.index, scope=['New York'], values=df.percent_public_transpo,title='NY Public Transit Use by County', legend_title='% Public Transit', county_outline={'color': 'rgb(15, 15, 55)', 'width': 0.5})
-# fig.layout.template = None
-# fig.show()
