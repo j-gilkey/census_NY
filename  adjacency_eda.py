@@ -19,7 +19,10 @@ def filter_tuples(df):
 
     return final_tuples
 
-def process_counties(df):
+def process_counties_to_nodes(df):
+    #takes in a county df and returns a list of 2 tuples ready to be entered as nodes
+    #first tuple element is just the county number
+    #the second is a dictionary representing node attributes
     final_list = []
     for index, row in df.iterrows():
         node = (str(index), {'percent_public_transpo': row['percent_public_transpo'], 'county_name': row['county_name']})
@@ -28,6 +31,7 @@ def process_counties(df):
 
 
 def draw_graph(G):
+    #takes in a graph object and creates a rendering of it
     plt.close()
     nx.draw(G, with_labels=True, font_weight='bold')
     plt.show()
@@ -39,7 +43,7 @@ def adjacency_graph():
     df = percent_public_trasnpo.create_dataframe()
     #get ny transpo census data
     county_FIPS_list = list(df.index)
-    county_FIPS = process_counties(df)
+    county_FIPS = process_counties_to_nodes(df)
     #make a list of each county
 
     adj_df = pd.read_csv('county_adjacency2010.csv')
@@ -59,4 +63,4 @@ def adjacency_graph():
     draw_graph(G)
 
 
-adjacency_graph()
+#adjacency_graph()
